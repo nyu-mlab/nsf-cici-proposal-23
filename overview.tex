@@ -1,0 +1,30 @@
+\section{Overview of Research}
+
+Intuition for Proposed Approach. We are building a more restricted form of Science DMZ with usability as the key. Usable allow lists.
+
+We focus on allow lists because a lot of the experimental traffic can be predetermined. We cannot use blocklists because connected to the HSRNs could be everyday devices with not just experimental traffic, but also everyday traffic. This everyday traffic is intractable. It is virtually impossible to build a blocklist for this everyday traffic because we never know which hosts the researchers devices would talk to. So we use a fallback approach. Let the everyday traffic go through the slow path, where traditional security appliances can inspect the traffic. Let the predetermined experimental traffic go through the fast path.
+
+In fact, the current HSRN setup at NYU is some form of an allow list. Researchers request certain ports and rules to be set up by the network administrators, who then have to manually set up, enable, and disable these rules. Why not make this process automatic?
+
+Hence our focus on usability. Empower HSRN users with the ability to self-configure allow lists. We will provide hints and nudges. If they make a mistake, traditional security appliances serve as a fallback.
+
+We are not reinventing the wheel. Defer to existing algorithms for anomaly detection. Our focus is on building a usable allow list mechanism.
+
+// Existing scientific infrastructure and distributed scientific environments that will benefit from the proposed research;How the proposed security mechanisms or infrastructure enhancements will advance scientific discoveries,collaborations, and innovations, and benefit scientific applications, users, and communities;Any unique properties of the scientific domain or infrastructure that influence the desired security functionality,design, or mechanisms; The software license that will be used for any released software, and justification for why this license has been chosen; A sustainability plan describing how the proposed system will be supported beyond the project duration; and Any ethical and operational concerns of the work, including obtaining explicit consent of target CI or entities under test, protecting the privacy of sensitive datasets, and establishing processes for informed disclosure as required.
+
+Proposed work. We break down our proposed work into 3 tasks:
+
+Task 1: Understanding the needs and behaviors of researchers.
+Through surveys and semi-structured interviews, we plan to understand how they are currently using the HSRN and their experience with the network administrators. Also, we plan to co-design sessions in focus groups to make preliminary designs on what the dashboard looks like and the proposed user interactions.
+Based on the network traffic data, we want to measure their traffic patterns on the network and see whether we can cluster the experimental traffic (based on the surveys and interviews): elephant flows (applicants that consumer significant bandwidth), or flows with small, consistent inter-arrival times (latency sensitive applications); and cluster users: AR researchers vs chemistry researchers who send data to DoE
+Task 2: Implementing the system.
+Front end: UI/UX, and automatic tagging of elephant flow / latency-sensitive flows
+Back end: implementing the backend system, automated inference, using existing state of the art
+Task 3: Deploying and evaluating the system on real users.
+Focus groups, surveys to understand user experience. Iterative process.
+Analysis of Zeek logs to catch human mistakes (allow list too broadly defined?)
+
+Ethical considerations. Conducting user studies will require IRB. Also, we work with NYU IT (through co-PI Dr. Robert Pahle) to implement and obtain necessary network measurement. We follow their existing privacy policies and best practices to impose minimal overhead to users of HSRN.
+
+Also something about informed consent for dashboard users, because we will collect telemetry data to understand their user experience.
+

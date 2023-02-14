@@ -1,0 +1,43 @@
+\section{Related Work}
+
+Security for high-speed networks
+
+// Rob: I think we are pretty unique in the fact that we are giving researchers 100G in their lab or office. My take is that research networks are usually in the data center and not implemented as a parallel network to offices. At the moment we are also not allowing sensitive data on the network, but i think this is the point that we would want to do that to give researchers that need it the opportunity to participate and utilize the new capacities that come with these networks.
+
+// Rob: usually we would use data transfer nodes in the DMZ and not necessarily add scientific devices into the DMZ without any security checks
+Problem with this is that you have to transfer twice  (and potentially need substantial amount of storage in the DMZ) and if the network is internally compromised it would still have no or little insight what is happening.
+
+
+Science DMZ opts for security while trusting individual devices on the DMZ network.
+
+High speed IDS and IPS solutions [Cite Justine Sherry]. Custom FPGA. IDS and IPS on 100 Gbps. Not sure how to integrate into the existing system.
+
+Cite Vijay’s chart showing prices of commercial products
+
+Here is the throughput data sheet of Palo Alto Networks IPS/IDS. The best model 7080 gives a throughput of 635 Gbps for application identification and 386 Gbps for Threat prevention.
+Cisco's best model's spec sheet. Best model: 235 Gbps.
+Zeek (Bro) could go up to 100 Gbps throughput with the right hardware.
+Checkpoint throughput spec sheet. Best model: <50 Gbps.
+
+IDS latencies.
+
+// Rob: error prone process: Yes, sometimes it takes sometimes months until an exception is granted and in fact often ports are not closed in a timely manner (or just left open)
+Network Access Control
+
+We can’t use security appliances in line (firewalls and IPS). We can’t use IDS as it’s too slow too.
+
+We are creating a more restricted Science DMZ with usability in mind. We want to reduce the attack surface with allow lists. By default, we defer all traffic to the slow path (traditional security middleboxes). Only select flows go through the fast path.
+
+Different from traditional allow lists which block all other traffic. We still allow flows not covered in the allow lists; just that they are on the slow path.
+
+Not using block lists for the DMZ network. [Cite Paul Pearce] block lists are often incomplete. Anomaly detection takes time to run. Delays could result in data exfiltration.
+
+Hence takes a conservative approach to reduce the attack surface.
+Security for non-experts
+
+Dashboard to visualize network traffic [cite Inspector, AR, my CHI paper]
+
+Nutritional labels. Simplification of technical concepts for non-experts. [Cite Pardis]
+
+
+
