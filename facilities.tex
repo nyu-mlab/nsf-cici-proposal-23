@@ -1,0 +1,93 @@
+\begin{center}
+    {\large \bf \TITLE } \\
+    {\bf Facilities, Equipment and Other Resources}
+\end{center}
+
+\section*{\centering Facilities, Equipment and Other Resources (NYU)}
+
+PI Cappos has a lab at NYU with approximately 1500 square feet
+of space.   The lab is furnished and network enabled.   The lab is fully
+accessible by all members of this project and has more than adequate space
+to host all of the participants and workstations for this project.
+
+In addition to the lab, PI Cappos has his own furnished, network-enabled office
+of approximately 200 square feet.
+
+PI Cappos also has space in several racks in the department's
+machine room that are available to this project to store servers or similar
+equipment to support this project.
+
+
+\section*{\centering NYU Research Technology Facilities, Equipment, and Resources (NYU)}
+
+New York University (NYU) comprises three degree granting campuses (New York City (NYC), Abu Dhabi (AD), and Shanghai), 18 schools and colleges, and 11 study away sites throughout the world. In NYC alone, NYU supports dozens of buildings on its Washington Square Campus; a “health corridor” that includes NYU Grossman School of Medicine, College of Dentistry, and College of Nursing on the east side of Manhattan; the Institute of Fine Arts on Manhattan’s Museum Mile; and in Brooklyn, the Tandon School of Engineering on NYU’s campus at Metrotech and a new facility at 370 Jay Street, which houses a broad array of media, technology, arts, and applied urban science programs.
+
+Throughout these facilities, NYU faculty, students, and staff have access to advanced research and instructional computing resources administered by the Research Technology division of NYU IT. These resources include High Performance Computing (HPC) and Big Data clusters, a dedicated High Speed Research Network, parallel and archival file systems, a wealth of open source and commercial software, as well as support, training, and consultations on how to best use the available resources.
+
+
+
+\subsubsection*{High Speed Research Network}
+
+In addition to the NYU global campus network, NYU-Net, NYU has made a significant infrastructure investment to create a High-Speed Research Network (HSRN) to link its researchers with central supercomputing and data center resources, and with external collaborators via the New York State Education and Research Network (NYSERNet) and Internet2. The HSRN is dedicated to research community needs and is separate from the 40 gigabit/second academic NYU Campus Ethernet Network (NYU-Net). HSRN Phase I in summer 2020 connected three key research facilities with the High-Performance Computing Clusters and other institutional research facilities in the NYU Research Computing Data Center (RCDC). Individual computers can be configured to connect to the HSRN via copper at up to 10 gigabit/second (20 with redundant active/active configuration), and via optical fiber at 100 gigabit/second (200 gigabit/second redundant in an active/active configuration). HSRN Building level connections are made via a dual 400 gigabit/second to the network core. The phased HSRN implementation will scale to connect additional buildings and research labs throughout the university, and will provide additional access to High Performance Computing resources, centralized storage for backup, disaster recovery, and University level Digital Archiving/Data Management and Repository services. A research faculty governance group provides oversight and input regarding operations, with NYU IT providing HSRN security, monitoring, consultation and managing the connected computational and data center resources.
+
+
+\subsubsection*{High Performance Computing }
+The NYU New York City High Performance Computing resources include:
+
+The central NYU HPC cluster, nicknamed Greene, consists of 4 login nodes, 524 “standard'' compute nodes with 192GB RAM and dual CPU sockets, 40 “medium memory” nodes with 384GB RAM and dual CPU sockets, and 4 “large memory” nodes each with 3TB RAM and quad CPU sockets. All cluster nodes are equipped with 24-core Intel Cascade Lake Platinum 8268 chips. The “standard” and “medium memory” compute nodes (a total of 564 nodes with 27,072 processing cores) are Direct Water Cooled (DWC) nodes by operating two Cooling Distribution Units (CDUs). DWC allows us to run the CPU at Turbo frequency of 3.7GHz nodes while we maintain operation of all processing cores. The Greene cluster also includes 65 compute nodes each equipped with 4 NVIDIA RTX8000 GPUs (a total of 260 RTX8000 GPUs), 10 nodes equipped with 4 V100 GPUs (a total of 40 V100 GPUs), and 9 nodes equipped 4 A100 GPUs (a total of 36 NVIDIA A100 GPUs). All cluster components are interconnected with an Infiniband (IB) fabric in a non-blocking Fat-tree topology, consisting of 20 core switches and 29 leaf switches. All switches are 200Gbps HDR IB switches while each compute node connects to the fabric using an HDR-100 adapter. The cluster comes with 7.3PetaBytes of usable data storage running the GPFS file system. Greene was ranked \#271 in the top500 list that was published in June of 2020.
+
+The NYU HPC team in NYC has expanded its supercomputing power with an HPC cluster provided by AMD and its technology partner Penguin Computing Inc. The cluster is part of a larger initiative, the AMD COVID-19 HPC fund, which was established to provide research institutions with computing resources to accelerate medical research on COVID-19 and other diseases. The cluster, named Hudson, consists of 20 compute nodes (servers), each equipped with an AMD EPYC Rome 7642 processor (having 48 processing cores), 512 GigaBytes (GB) of host memory, 8 MI-50 32GB Graphics Processing Units (GPUs) and 2 TeraByte (TB) of local Solid State Disk (SSD) for data storage. In addition to the compute nodes, three nodes provide remote user access and cluster management. All cluster components are connected internally using an Infiniband network HDR technology providing a communication bandwidth of 200 Gigabits per second (Gbps). The Hudson cluster can perform one quadrillion ($10^15$) Floating-point operations per second (a PetaFlop) and requires over 60kW of power to run. Hudson and the Greene clusters share the same internal interconnects (non-blocking HDR Infiniband) and management networks allowing the sharing of files sets between the two powerful clusters. Hudson was deployed in the Fall of 2020  in a heat-contained area in the new, energy efficient NYU Research Computing Data Center (RCDC).
+
+In addition to the on-prem Hudson cluster, and as part of AMD’s HPC COVID-19 fund, NYU researchers have access to 4 PetaFlops of compute power, available remotely as a cloud service, Penguin-on-Demand (PoD). The computer hardware (CPUs, GPUS, RAM, Interconnects, etc.) of the PoD system is identical to the Hudson cluster. The PoD resource is shared with peer researchers at MIT and Rice university.
+
+GPFS: A total of 7.3PetaBytes (usable) of the General Parallel File System (GPFS) is available on the on-premises HPC clusters (Greene and Hudson). 5 PetaBytes are allocated to a short-term, non-backed up storage (or “scratch”) file system for data that is being actively analyzed. In addition, 1.5PetaBytes of GPFS provide backed up archival data storage. The remaining of the GPFS storage is used for Research Project Space (RPS) a file system that  provides backed up working space for sharing data and code amongst project or lab members.
+
+VAST: A 778TB all-flash VAST storage system is accessible from the compute nodes of the Greene and Hudson HPC clusters and provides short term storage for workloads with high IO rates such as those that require access to large numbers of small files.
+
+All users with valid NYU HPC accounts have access to the NYU Abu Dhabi (NYUAD) HPC cluster, nicknamed Jubail, located in Abu Dhabi, UAE.
+
+Jubail includes 28,300 CPU cores (AMD Rome), 60 GPU cards and 6 PetaBytes of Lustre storage. It achieves over 800 TFLOPS from 221 CPU nodes and additional 525 TFLOPSs from 36 GPU nodes giving a total performance of 1.3 PFLOPS effectively doubling the performance of its predecessor, the Dalma HPC cluster.
+
+\subsubsection*{NYU Research Computing Data Center (RCDC)}
+
+A private, centralized, colocated Data Center has been designed to meet the growing demand of  Research Computing resources in space, electrical power, and cooling. A state-of-the-art, 5,000 sq feet (50ft x 100ft) of raised floor space, housing ten rows of racks, currently provides 750kW of power and can trivially be expanded to 1.25MW. A modern data center facility with all the electrical power equipment cabling, designed to be power efficient with a Power Utilization Efficiency (PUE) of 1.08. The data center supports energy efficient server cooling methods: direct water cooling to HPC racks, enabling the cooling of dense HPC racks up to 70kW per rack, and heat containment for air cooled racks resulting in improved energy efficiency and contributing to the University's sustainability efforts.
+
+\subsubsection*{RCDC Network Connectivity}
+
+The Data Center is connected to the enterprise NYU network (NYU-Net), and also  linked to a new low-latency, High-Speed Research Network (HSRN), dedicated to research projects and capable of delivering 3.2Tbps to research facilities in the NYU Washington Square campus.  The data center has a dedicated fiber connection to 32 Avenue of the Americas, also known as the AT\&T building, located in the Tribeca neighborhood of New York City. The building houses Manhattan Landing (MAN LAN) a high-performance exchange point in New York City that supports Layer 2 Ethernet connections to facilitate peering among U.S. and international research and education (R\&E) networks. The exchange point is a collaboration between Internet2, NYSERNet (The New York State Education and Research Network), and the Global Research NOC at Indiana University. Through NYSERNet and its peering with the Internet2 Network, we can reach cloud resources, including Microsoft Azure ExpressRoute, Amazon Web Services (AWS) Direct Connect and Google Cloud Platform (GCP) Interconnect. NYU participates in the Internet2 Net+ GCP program and connects to GCP via Internet2 Cloud Connect. The NYU IT Global Command Center (GCC), located within the SDC, provides 24x7 monitoring environmental conditions, UPS/power, physical security, mechanical equipment, all mission-critical administrative and academic systems, data storage, network and connectivity, the processing and scheduling of batch jobs, as well as tape vaulting operations. All of this is made possible by the use of a broad range of monitoring tools: Nagios, ManageEngine, and BMS, to name just a few. GTC is manned 24x7 with system administrators, network engineers, and data center management staff, all co-located in the Command Center. GCC is monitoring the Syracuse High Availability site (an emergency backup location for many of NYU’s crucial software and IT applications) and switch closets. With the addition of Syracuse, the Global Command Center will be monitoring a total of six data centers, including NYU data centers in Abu Dhabi and Shanghai.
+
+\subsubsection*{Syracuse Data Center Facility}
+NYU IT has built an off-site center environment within NYSERNet's Syracuse Data Center facility: The 4,000 sq. ft. data center is maintained and monitored on a 24x7 basis by NYSERNet, and is designed to host live systems as well as act as a disaster recovery site for rapid failover of services.  To date, NYU IT has deployed 20 racks at the data center, which are fully integrated in the NYU Global Wide Area Network (WAN), enabling the racks to appear as an extension of our NYC data center environment with the same level of security protection mechanisms. The NYU Washington Square campus and Syracuse Data Center are interconnected by dual, redundant 10 Gbps links placed along different paths across New York State.  The data center has 3 Gbps (expandable to 10 Gbps) of Internet access, and 5 Gbps of access to Internet2 and the global National Research and Education Networks (NRENs).
+
+\subsubsection*{HPC Training and Tutorials}
+The NYU HPC team offers a number of scheduled, in-class, tutorials ranging from introduction to Linux to more advanced topics. In addition to in-class tutorials, the HPC team conducts customized, course-specific tutorials and one-on-one consultation sessions and also schedules full-day, hands-on tutorials with Intel and NVidia on how to best utilize the CPU and GPU resources in research projects. The HPC team utilizes resources available at NYU’s Bobst Library to advertise training activities and host sessions in the classrooms at the Research Commons area.
+
+\subsubsection*{Research Data Management}
+Two full-time Research Data Managers (RDMs) assist researchers in navigating the best practices around data gathering, cleaning, preparation, storage, preservation, and distribution/sharing, and teach the tools needed to deploy those techniques. The RDM team, within Data Services (described below), also assists members of the NYU community in grant applications by reviewing and editing data management plans (DMPs) and data sharing/access plans. The team offers individual and group consultations, as well as scheduled and by-request class sessions and workshops on specific topics and tools.
+
+\subsubsection*{Data Services }
+Data Services is a joint service of NYU's Division of Libraries and Information Technology (IT) in support of quantitative, qualitative, and geographical research at NYU. Data Services offers access to specialty software packages for statistical analysis, geographic information systems (GIS), and qualitative data analysis. Data Services provide training and support, as well as consulting expertise, for many aspects of the research data lifecycle including access, analysis, collection development, data management, and data preservation.
+
+\subsubsection*{The NYU Campus Network (NYU-NET)}
+The New York University global campus network, NYU-NET, interconnects over 150 buildings in New York City via a highly redundant, high-performance multi-10 gigabit network core.  Within buildings, both Ethernet and Wi-Fi service are ubiquitously available, with dual uplinks to the core via a redundant distribution layer.  The on-campus data centers are redundantly attached to the core as well via four 40 gigabit/second Ethernet links each, and a remote data center located in the NYSERNet facility in Syracuse, NY is linked to campus via dual 10 gigabit/second links.  NYU currently has 10 gigabit/second connectivity to NYSERNet, which in turn has dual 100 gigabit/second links to Internet2 and the global Research and Education Networks (RENs).  The University also hosts GENI researchers, an InstaGENI rack, and have 10 gigabit/second connectivity to the GENI Mesoscale network. NYU-NET also offers 30 Gbps of Internet access, via four redundant links to different service providers. NYU global locations each have their own Internet access and REN access whenever possible, the vast majority of which are interconnected via a secure, private global Wide Area Network (WAN).
+
+\subsubsection*{Research Technology Staffing}
+Research Technology personnel includes HPC personnel: an HPC manager, an HPC team Lead, four Senior HPC Specialists, and one HPC Specialist. HPC personnel support systems, configure and run the HPC and Hadoop clusters, maintain the network interconnects, provide expertise in data storage and parallel file systems, and respond to user questions regarding the use of the HPC resources. The team also includes a Senior Computational Specialist and an AI technical lead, who along with the two senior HPC Specialists, work closely with researchers to promote best practices when using the available resources, and conduct consultations and training tutorials.
+
+Research Technology staffing also includes a Research Cloud Technical Lead and a Research Cloud Specialist who work to promote the use of cloud resources in research projects, establish policies and best practices on using public clouds, and onboard research projects to the Google Cloud Platform.
+
+The team also includes a Senior Research Scientist, a Senior Research Network Engineer, and NYU consultants who work on onboarding research teams and connecting resources to the High Speed Research Network (HSRN), establishing best practices on utilizing the HSRN, plan for network expansion in additional NYU buildings that house researchers and develop tools to monitor and optimize the use of the research network.
+
+
+
+\subsubsection*{Letters of Collaboration}
+
+Once we have established the data storage instrumentation developed as part of this project and tested it on our AR/VR use case, several collaborators will pilot its use for other research use cases, as mentioned in the Project Description. The NYU collaborators include:
+
+\begin{itemize}
+    \item Giuseppe Loianno
+    \item Jan Plass
+    \item Ludovic Righetti
+    \item Luke DuBois
+\end{itemize}
+

@@ -33,7 +33,7 @@
 %% \renewcommand*{\backreftwosep}{ and~}
 %% \renewcommand*{\backreflastsep}{ and~}
 
-\newcommand{\TITLE}{TITLE HERE}
+\newcommand{\TITLE}{CICI: UCSS: Usable Access Control for High Speed Research Networks}
 \newcommand{\xxx}[1]{{\color{red} #1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,16 +62,17 @@
 \date{}
 
 % 6 lines per inch, per research.gov
-\setstretch{1.004} 
+\setstretch{1.05}
+
+\pagestyle{empty}  % Danny: Suppresses all page numbers
 
 \begin{sloppypar}
-\pagestyle{plain}
 \thispagestyle{empty}
 \input{summary}
 \pagebreak
 \setcounter{page}{0}
 \input{introduction}
-\input{outreach}
+\input{broader}
 \input{management}
 \input{prior}
 
@@ -86,7 +87,12 @@
 
 \pagebreak
 \setcounter{page}{1}
-\input{postdoc}
+\input{facilities}
+
+
+\pagebreak
+\setcounter{page}{1}
+\input{personnel.tex}
 
 
 \end{sloppypar}
