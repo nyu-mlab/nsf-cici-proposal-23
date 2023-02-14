@@ -6,6 +6,9 @@
 \usepackage[small,compact]{titlesec}
 \usepackage[margin=1in]{geometry}
 \usepackage{setspace}
+\usepackage{enumitem} % https://tex.stackexchange.com/questions/119919/no-spacing-between-enumerated-items-with-usepackageenumerate
+\usepackage{lipsum}
+
 
 %\titleformat{\section}
 %  {\normalfont\fontsize{10}{10}\bfseries}{\thesection}{0.5em}{}
@@ -49,14 +52,14 @@
   {\end{enumerate}}
 \newcommand{\todo}[2][TODO]{\textcolor{todo}{[{\em #1: #2}]}}
 
-\newcommand{\eg}{{\it e.g.}}
-\newcommand{\ie}{{\it i.e.}}
+\newcommand{\eg}{{\it e.g.,}}
+\newcommand{\ie}{{\it i.e.,}}
 \newcommand{\etal}{{\it et al.}}
 \newcommand{\comment}[1]{}
 
-\newcommand{\fp}{\vspace*{0.03in}\noindent}
+\newcommand{\fp}{\vspace*{0.07in}\noindent}
 \renewcommand{\b}{$\bullet$}
-\renewcommand{\paragraph}[1]{\fp {\bf #1}}
+\renewcommand{\paragraph}[1]{\fp {\bf #1}.}
 
 \begin{document}
 \date{}

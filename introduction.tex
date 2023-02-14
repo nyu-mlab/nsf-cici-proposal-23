@@ -36,9 +36,8 @@ A network measurement and analytics service to monitor, visualize and annotate a
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.5\linewidth]{figures/system.png}
-    \caption{An overview of the new Extension running on top of the original IoT Inspector.}
-    \label{fig:extension}
-    \vspace{-0.5cm}
+    \caption{How our proposed system, including [D], [E], and [G], fits into a High Speed Research Network.}
+    \label{fig:system}
 \end{figure}
 
 To illustrate how the proposed system works, we describe a sample interaction for a researcher in Figure 1. Here, a researcher connects their computer [A] to the HSRN to transfer 10 TB of data to a collaborator with the Dept of Energy (DoE). By default, all traffic, including the researchers’ normal web traffic (e.g., web, checking emails, etc.) and the data transfer with DoE, go through the secure route of the network, where all packets are inspected by traditional security appliances such as IPS. This is a slow path (from [A] through [B] to [C]) (<10 Gbps), because  typical security appliances like IPS and firewalls [C] restrict the bandwidth and increase the latency.

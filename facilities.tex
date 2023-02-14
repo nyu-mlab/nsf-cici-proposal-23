@@ -1,37 +1,27 @@
 \begin{center}
-    {\large \bf \TITLE } \\
+    {\large \bf \TITLE} \\
     {\bf Facilities, Equipment and Other Resources}
 \end{center}
 
-\section*{\centering Facilities, Equipment and Other Resources (NYU)}
-
-PI Cappos has a lab at NYU with approximately 1500 square feet
-of space.   The lab is furnished and network enabled.   The lab is fully
-accessible by all members of this project and has more than adequate space
-to host all of the participants and workstations for this project.
-
-In addition to the lab, PI Cappos has his own furnished, network-enabled office
-of approximately 200 square feet.
-
-PI Cappos also has space in several racks in the department's
-machine room that are available to this project to store servers or similar
-equipment to support this project.
 
 
-\section*{\centering NYU Research Technology Facilities, Equipment, and Resources (NYU)}
+\section*{Resources from NYU Research Technology}
 
+The PI and both co-PIs have access to the following resources from NYU Research Technology. In particular, co-PI Pahle is a part of NYU Research Technology and helps the development and maintenance of the High Speed Research Network.
+
+
+\paragraph{NYU Global Network}
 New York University (NYU) comprises three degree granting campuses (New York City (NYC), Abu Dhabi (AD), and Shanghai), 18 schools and colleges, and 11 study away sites throughout the world. In NYC alone, NYU supports dozens of buildings on its Washington Square Campus; a “health corridor” that includes NYU Grossman School of Medicine, College of Dentistry, and College of Nursing on the east side of Manhattan; the Institute of Fine Arts on Manhattan’s Museum Mile; and in Brooklyn, the Tandon School of Engineering on NYU’s campus at Metrotech and a new facility at 370 Jay Street, which houses a broad array of media, technology, arts, and applied urban science programs.
 
 Throughout these facilities, NYU faculty, students, and staff have access to advanced research and instructional computing resources administered by the Research Technology division of NYU IT. These resources include High Performance Computing (HPC) and Big Data clusters, a dedicated High Speed Research Network, parallel and archival file systems, a wealth of open source and commercial software, as well as support, training, and consultations on how to best use the available resources.
 
 
 
-\subsubsection*{High Speed Research Network}
-
+\paragraph{High Speed Research Network}
 In addition to the NYU global campus network, NYU-Net, NYU has made a significant infrastructure investment to create a High-Speed Research Network (HSRN) to link its researchers with central supercomputing and data center resources, and with external collaborators via the New York State Education and Research Network (NYSERNet) and Internet2. The HSRN is dedicated to research community needs and is separate from the 40 gigabit/second academic NYU Campus Ethernet Network (NYU-Net). HSRN Phase I in summer 2020 connected three key research facilities with the High-Performance Computing Clusters and other institutional research facilities in the NYU Research Computing Data Center (RCDC). Individual computers can be configured to connect to the HSRN via copper at up to 10 gigabit/second (20 with redundant active/active configuration), and via optical fiber at 100 gigabit/second (200 gigabit/second redundant in an active/active configuration). HSRN Building level connections are made via a dual 400 gigabit/second to the network core. The phased HSRN implementation will scale to connect additional buildings and research labs throughout the university, and will provide additional access to High Performance Computing resources, centralized storage for backup, disaster recovery, and University level Digital Archiving/Data Management and Repository services. A research faculty governance group provides oversight and input regarding operations, with NYU IT providing HSRN security, monitoring, consultation and managing the connected computational and data center resources.
 
 
-\subsubsection*{High Performance Computing }
+\paragraph{High Performance Computing}
 The NYU New York City High Performance Computing resources include:
 
 The central NYU HPC cluster, nicknamed Greene, consists of 4 login nodes, 524 “standard'' compute nodes with 192GB RAM and dual CPU sockets, 40 “medium memory” nodes with 384GB RAM and dual CPU sockets, and 4 “large memory” nodes each with 3TB RAM and quad CPU sockets. All cluster nodes are equipped with 24-core Intel Cascade Lake Platinum 8268 chips. The “standard” and “medium memory” compute nodes (a total of 564 nodes with 27,072 processing cores) are Direct Water Cooled (DWC) nodes by operating two Cooling Distribution Units (CDUs). DWC allows us to run the CPU at Turbo frequency of 3.7GHz nodes while we maintain operation of all processing cores. The Greene cluster also includes 65 compute nodes each equipped with 4 NVIDIA RTX8000 GPUs (a total of 260 RTX8000 GPUs), 10 nodes equipped with 4 V100 GPUs (a total of 40 V100 GPUs), and 9 nodes equipped 4 A100 GPUs (a total of 36 NVIDIA A100 GPUs). All cluster components are interconnected with an Infiniband (IB) fabric in a non-blocking Fat-tree topology, consisting of 20 core switches and 29 leaf switches. All switches are 200Gbps HDR IB switches while each compute node connects to the fabric using an HDR-100 adapter. The cluster comes with 7.3PetaBytes of usable data storage running the GPFS file system. Greene was ranked \#271 in the top500 list that was published in June of 2020.
@@ -48,30 +38,28 @@ All users with valid NYU HPC accounts have access to the NYU Abu Dhabi (NYUAD) H
 
 Jubail includes 28,300 CPU cores (AMD Rome), 60 GPU cards and 6 PetaBytes of Lustre storage. It achieves over 800 TFLOPS from 221 CPU nodes and additional 525 TFLOPSs from 36 GPU nodes giving a total performance of 1.3 PFLOPS effectively doubling the performance of its predecessor, the Dalma HPC cluster.
 
-\subsubsection*{NYU Research Computing Data Center (RCDC)}
-
+\paragraph{NYU Research Computing Data Center (RCDC)}
 A private, centralized, colocated Data Center has been designed to meet the growing demand of  Research Computing resources in space, electrical power, and cooling. A state-of-the-art, 5,000 sq feet (50ft x 100ft) of raised floor space, housing ten rows of racks, currently provides 750kW of power and can trivially be expanded to 1.25MW. A modern data center facility with all the electrical power equipment cabling, designed to be power efficient with a Power Utilization Efficiency (PUE) of 1.08. The data center supports energy efficient server cooling methods: direct water cooling to HPC racks, enabling the cooling of dense HPC racks up to 70kW per rack, and heat containment for air cooled racks resulting in improved energy efficiency and contributing to the University's sustainability efforts.
 
-\subsubsection*{RCDC Network Connectivity}
-
+\paragraph{RCDC Network Connectivity}
 The Data Center is connected to the enterprise NYU network (NYU-Net), and also  linked to a new low-latency, High-Speed Research Network (HSRN), dedicated to research projects and capable of delivering 3.2Tbps to research facilities in the NYU Washington Square campus.  The data center has a dedicated fiber connection to 32 Avenue of the Americas, also known as the AT\&T building, located in the Tribeca neighborhood of New York City. The building houses Manhattan Landing (MAN LAN) a high-performance exchange point in New York City that supports Layer 2 Ethernet connections to facilitate peering among U.S. and international research and education (R\&E) networks. The exchange point is a collaboration between Internet2, NYSERNet (The New York State Education and Research Network), and the Global Research NOC at Indiana University. Through NYSERNet and its peering with the Internet2 Network, we can reach cloud resources, including Microsoft Azure ExpressRoute, Amazon Web Services (AWS) Direct Connect and Google Cloud Platform (GCP) Interconnect. NYU participates in the Internet2 Net+ GCP program and connects to GCP via Internet2 Cloud Connect. The NYU IT Global Command Center (GCC), located within the SDC, provides 24x7 monitoring environmental conditions, UPS/power, physical security, mechanical equipment, all mission-critical administrative and academic systems, data storage, network and connectivity, the processing and scheduling of batch jobs, as well as tape vaulting operations. All of this is made possible by the use of a broad range of monitoring tools: Nagios, ManageEngine, and BMS, to name just a few. GTC is manned 24x7 with system administrators, network engineers, and data center management staff, all co-located in the Command Center. GCC is monitoring the Syracuse High Availability site (an emergency backup location for many of NYU’s crucial software and IT applications) and switch closets. With the addition of Syracuse, the Global Command Center will be monitoring a total of six data centers, including NYU data centers in Abu Dhabi and Shanghai.
 
-\subsubsection*{Syracuse Data Center Facility}
+\paragraph{Syracuse Data Center Facility}
 NYU IT has built an off-site center environment within NYSERNet's Syracuse Data Center facility: The 4,000 sq. ft. data center is maintained and monitored on a 24x7 basis by NYSERNet, and is designed to host live systems as well as act as a disaster recovery site for rapid failover of services.  To date, NYU IT has deployed 20 racks at the data center, which are fully integrated in the NYU Global Wide Area Network (WAN), enabling the racks to appear as an extension of our NYC data center environment with the same level of security protection mechanisms. The NYU Washington Square campus and Syracuse Data Center are interconnected by dual, redundant 10 Gbps links placed along different paths across New York State.  The data center has 3 Gbps (expandable to 10 Gbps) of Internet access, and 5 Gbps of access to Internet2 and the global National Research and Education Networks (NRENs).
 
-\subsubsection*{HPC Training and Tutorials}
+\paragraph{HPC Training and Tutorials}
 The NYU HPC team offers a number of scheduled, in-class, tutorials ranging from introduction to Linux to more advanced topics. In addition to in-class tutorials, the HPC team conducts customized, course-specific tutorials and one-on-one consultation sessions and also schedules full-day, hands-on tutorials with Intel and NVidia on how to best utilize the CPU and GPU resources in research projects. The HPC team utilizes resources available at NYU’s Bobst Library to advertise training activities and host sessions in the classrooms at the Research Commons area.
 
-\subsubsection*{Research Data Management}
+\paragraph{Research Data Management}
 Two full-time Research Data Managers (RDMs) assist researchers in navigating the best practices around data gathering, cleaning, preparation, storage, preservation, and distribution/sharing, and teach the tools needed to deploy those techniques. The RDM team, within Data Services (described below), also assists members of the NYU community in grant applications by reviewing and editing data management plans (DMPs) and data sharing/access plans. The team offers individual and group consultations, as well as scheduled and by-request class sessions and workshops on specific topics and tools.
 
-\subsubsection*{Data Services }
+\paragraph{Data Services}
 Data Services is a joint service of NYU's Division of Libraries and Information Technology (IT) in support of quantitative, qualitative, and geographical research at NYU. Data Services offers access to specialty software packages for statistical analysis, geographic information systems (GIS), and qualitative data analysis. Data Services provide training and support, as well as consulting expertise, for many aspects of the research data lifecycle including access, analysis, collection development, data management, and data preservation.
 
-\subsubsection*{The NYU Campus Network (NYU-NET)}
+\paragraph{The NYU Campus Network (NYU-NET)}
 The New York University global campus network, NYU-NET, interconnects over 150 buildings in New York City via a highly redundant, high-performance multi-10 gigabit network core.  Within buildings, both Ethernet and Wi-Fi service are ubiquitously available, with dual uplinks to the core via a redundant distribution layer.  The on-campus data centers are redundantly attached to the core as well via four 40 gigabit/second Ethernet links each, and a remote data center located in the NYSERNet facility in Syracuse, NY is linked to campus via dual 10 gigabit/second links.  NYU currently has 10 gigabit/second connectivity to NYSERNet, which in turn has dual 100 gigabit/second links to Internet2 and the global Research and Education Networks (RENs).  The University also hosts GENI researchers, an InstaGENI rack, and have 10 gigabit/second connectivity to the GENI Mesoscale network. NYU-NET also offers 30 Gbps of Internet access, via four redundant links to different service providers. NYU global locations each have their own Internet access and REN access whenever possible, the vast majority of which are interconnected via a secure, private global Wide Area Network (WAN).
 
-\subsubsection*{Research Technology Staffing}
+\paragraph{Research Technology Staffing}
 Research Technology personnel includes HPC personnel: an HPC manager, an HPC team Lead, four Senior HPC Specialists, and one HPC Specialist. HPC personnel support systems, configure and run the HPC and Hadoop clusters, maintain the network interconnects, provide expertise in data storage and parallel file systems, and respond to user questions regarding the use of the HPC resources. The team also includes a Senior Computational Specialist and an AI technical lead, who along with the two senior HPC Specialists, work closely with researchers to promote best practices when using the available resources, and conduct consultations and training tutorials.
 
 Research Technology staffing also includes a Research Cloud Technical Lead and a Research Cloud Specialist who work to promote the use of cloud resources in research projects, establish policies and best practices on using public clouds, and onboard research projects to the Google Cloud Platform.
@@ -79,15 +67,91 @@ Research Technology staffing also includes a Research Cloud Technical Lead and a
 The team also includes a Senior Research Scientist, a Senior Research Network Engineer, and NYU consultants who work on onboarding research teams and connecting resources to the High Speed Research Network (HSRN), establishing best practices on utilizing the HSRN, plan for network expansion in additional NYU buildings that house researchers and develop tools to monitor and optimize the use of the research network.
 
 
+\section*{Resources from NYU Center for Urban Science and Progress (CUSP)}
 
-\subsubsection*{Letters of Collaboration}
+PI Huang is affiliated with New York University (NYU)'s Department of Electrical
+and Computer Engineering, as well as Center for Urban Sciene and Progress
+(CUSP). His primary office and lab space is located within CUSP. He has access
+to resources at CUSP.
 
-Once we have established the data storage instrumentation developed as part of this project and tested it on our AR/VR use case, several collaborators will pilot its use for other research use cases, as mentioned in the Project Description. The NYU collaborators include:
 
-\begin{itemize}
-    \item Giuseppe Loianno
-    \item Jan Plass
-    \item Ludovic Righetti
-    \item Luke DuBois
+\paragraph{Center for Urban Science and Progress}
+New York University's (NYU) Center for Urban Science and Progress (CUSP), part
+of the Tandon School of Engineering, is an interdisciplinary research center
+dedicated to the application of science, technology, engineering, and
+mathematics in the service of urban communities across the globe. Using New York
+City as our laboratory and classroom, we strive to develop novel data- and
+technology-driven solutions for complex urban problems. CUSP's research and
+educational initiatives seek to improve city services; optimize decision-making
+by local governments; create smart urban infrastructures; address challenging
+urban issues such as crime, environmental pollution and public health issues;
+and inspire urban citizens to improve their quality of life. CUSP offers a
+Master of Science in Applied Urban Science and Informatics, empowering our
+students with the knowledge and technical expertise to make cities around the
+world more productive, livable, equitable, and resilient.
+
+\paragraph{CUSP Computing}
+CUSP's Research Computing Facility (RCF) is a significant resource for research hosted on CUSP internal servers and will be leveraged to support this project.  The RCF provides: infrastructure for storing data; a production environment that supports analysis of large urban data sets (e.g., cluster and cloud computing facilities, relational and NoSQL databases); and protocols and infrastructure for data access that ensure compliance with privacy and security constraints for individual datasets. A Research Computing Facility Manager operates and maintains the secure computing environment and is available to assist researchers in the design of data strategy, allocation of computing resources, management of shared server space, and preservation of data after the completion of projects.
+
+The RCF is associated with a data center server room in CUSP's Brooklyn office configured to support research. It features dedicated large servers for intense computing (64 Intel cores, 1 TB RAM), secure file transfer dedicated servers, enterprise level Windows Remote Desktops, and other infrastructure; a HADOOP Cloudera Cluster with 20 nodes, totaling 1280 CPU cores, 5.1 TB memory, and 100TB HDFS (Hadoop Distributed File System) storage; an IBM SAN storage controller with 4 expansions with capacity of 505.086 TB (1PB raw storage); an ESXI VMware testing servers for multiple customized Virtual Machines; a Citrix XenServer for production VMs; IBM Enterprise level backup system and Tape library with high capacity up to 500TB; and ultra-fast network cables and switches 10-40GB. There are also two secure, limited-access Dell workstations in a private room for researchers working with highly restricted data.
+
+\paragraph{CUSP Resources}
+CUSP leverages a diverse range of existing, emerging, and new data flows, including data generated by and/or collected by the City of New York; sensor data, both from the City and from networks developed by CUSP for research; and novel data streams collected by CUSP researchers. The CUSP RCF currently houses more than 300TB of data.
+
+Data from the City of New York is acquired in part through a unique collaboration between CUSP and the City that underlies CUSP's mission.  CUSP specifically collaborates with more than 15 City agencies and divisions, including:  Department of Transportation, Department of Buildings, Department of Sanitation, Department of Citywide Administrative Services, Department of Design and Construction, Department of City Planning, Department of Health and Mental Hygiene, Department of Environmental Protection, Department of Information Technology and Telecommunications, Department of Parks and Recreation, City Police Department, City Fire Department.  Under this agreement, CUSP works with City agencies to:
+
+\begin{itemize}[nolistsep]
+    \item identify significant real world problems affecting the delivery of municipal services and critical challenges to the urban environment and economy, and
+    \item develop and implement solutions to these problems and challenges, with the goals of understanding and improving urban systems and quality of life and/or supporting and encouraging commercial applications and ventures that have the potential to result in job growth.
+\end{itemize}
+
+
+Specific agreements facilitate the exchange of data, documents, and records from the City to CUSP.
+
+In addition to data from the City of New York, CUSP is working with community and industry partners to develop and deploy sensor networks and other novel data generation practices for research to support our mission to make cities more productive, livable, equitable, and resilient.
+
+Additional resources available to the project are provided by CUSP and NYU administrative staff who provide assistance with financial management, procurement, hiring and human resources, and information technology.
+
+
+
+
+\paragraph{CUSP Office}
+CUSP occupies 29,432 square feet on the 13th floor of 370 Jay Street, located in Downtown Brooklyn, adjacent to the MetroTech Center. CUSP's facilities include faculty offices, individual workspaces for employees and research assistants, conference rooms and smaller meeting spaces, and project laboratory spaces. The building and floor are secured by key card access, security cameras, and 24-hour security staff.
+
+
+
+
+
+
+
+
+
+\section*{Resources from Justin Cappos}
+
+PI Cappos has a lab at NYU with approximately 1500 square feet
+of space.   The lab is furnished and network enabled.   The lab is fully
+accessible by all members of this project and has more than adequate space
+to host all of the participants and workstations for this project.
+
+In addition to the lab, PI Cappos has his own furnished, network-enabled office
+of approximately 200 square feet.
+
+PI Cappos also has space in several racks in the department's
+machine room that are available to this project to store servers or similar
+equipment to support this project.
+
+
+
+
+\section*{Letters of Collaboration}
+
+We have the following NYU faculty members from diverse disciplines who have expressed interest in working with us, e.g., participating in user studies and testing our prototypes.
+
+\begin{itemize}[nolistsep]
+    \item Giuseppe Loianno (Robotics)
+    \item Jan Plass (Media, AR/VR)
+    \item Ludovic Righetti (Robotics)
+    \item Luke DuBois (Interactive Media/Arts)
+    \item Ken Perlin (AR/VR)
 \end{itemize}
 
