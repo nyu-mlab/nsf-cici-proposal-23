@@ -1,4 +1,9 @@
 .DS_Store
-proposal.fdb_latexmk
-proposal.fls
-proposal.synctex.gz
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+* aux
+*.bbl
+*.blg
+*.log
+*.pdf
