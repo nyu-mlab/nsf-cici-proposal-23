@@ -12,7 +12,7 @@ Science DMZ opts for security while trusting individual devices on the DMZ netwo
 
 High speed IDS and IPS solutions [Cite Justine Sherry]. Custom FPGA. IDS and IPS on 100 Gbps. Not sure how to integrate into the existing system.
 
-Cite Vijay’s chart showing prices of commercial products
+Cite Vijay's chart showing prices of commercial products
 
 Here is the throughput data sheet of Palo Alto Networks IPS/IDS. The best model 7080 gives a throughput of 635 Gbps for application identification and 386 Gbps for Threat prevention.
 Cisco's best model's spec sheet. Best model: 235 Gbps.
@@ -24,7 +24,7 @@ IDS latencies.
 // Rob: error prone process: Yes, sometimes it takes sometimes months until an exception is granted and in fact often ports are not closed in a timely manner (or just left open)
 Network Access Control
 
-We can’t use security appliances in line (firewalls and IPS). We can’t use IDS as it’s too slow too.
+We can't use security appliances in line (firewalls and IPS). We can't use IDS as it's too slow too.
 
 We are creating a more restricted Science DMZ with usability in mind. We want to reduce the attack surface with allow lists. By default, we defer all traffic to the slow path (traditional security middleboxes). Only select flows go through the fast path.
 
