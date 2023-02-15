@@ -1,0 +1,53 @@
+\section{Task 2: Implement the system }
+
+
+
+\subsection{Task 2a: Automated inference of traffic patterns}
+
+\paragraph{Challenges} XXX
+
+On the dashboard users need to specify which of their network activities to add to an allow list. Not an easy process. Many flows on their computers, elephant and mice. Also multiple destinations, sometimes to CDNs. We help them make this decision.
+
+Profiling users. Task 1a and 1b already give us user profiles.
+
+Auto-identifying destinations. What destination are you talking to? Not straightforward. PI Huang has some preliminary work. NLP. Zeek logs
+
+Auto-clustering traffic patterns. Identifying elephant flows and latency sensitive flows. Presenting this information through dashboard.  Zeek.
+
+// Idea: identifying network flows
+
+\paragraph{Preliminary work} Inspector work — identifying hosts, based on webXray. Flow clustering: PI Huang's HotSDN paper.
+
+\paragraph{Expected outcome} A technique to automatically identify destinations and traffic patterns to help users make decisions more easily.
+
+\paragraph{Lead investigator} PI Huang and Co-PI Pahle will work together on implementing. Co-PI Cappos will advise on XXX.
+
+
+
+
+
+
+
+\subsection{Task 2b: Integrating with existing state-of-the-art network systems}
+
+\paragraph{Challenges} XXX
+
+System design. see figure 1. How proposed technique will augment existing state-of-the art
+
+ROB PAHLE: XXX - Please explain a few technical details here (or just throw in a few terms so that I can complete the rest):
+What switches do we use?
+What SDN switches? What SDN controllers?
+How do we currently write rules into switches?
+How do you manually enable access for researchers? What tools do you use?
+How do you use Zeek for IDS?
+What firewall/IDS/IPS do you use right now?
+
+Failure modes. what if the user fails to make a right selection? IDS on zeek would help.
+
+ROB PAHLE: XXX - Please write about your tagging idea here.
+
+\paragraph{Preliminary work} XXX
+
+\paragraph{Expected outcome} A full fledged small portion of the HSRN that runs the above system for testing purposes.
+
+\paragraph{Lead investigator} PI Huang and Co-PI Pahle will work together on implementing. Co-PI Cappos will advise on XXX.
