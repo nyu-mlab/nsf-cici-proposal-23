@@ -1,32 +1,50 @@
 \section{Overview of Research}
 
-Intuition for Proposed Approach. We are building a more restricted form of Science DMZ with usability as the key. Usable allow lists.
+\paragraph{Intuition for Proposed Approach}
+Our proposed work is essentially a more restricted form of Science DMZ where researchers manage their own security bypass, facilitated by a usable interface, flow annotations, and a fallback mechanism to detect errors.
 
-We focus on allow lists because a lot of the experimental traffic can be predetermined. We cannot use blocklists because connected to the HSRNs could be everyday devices with not just experimental traffic, but also everyday traffic. This everyday traffic is intractable. It is virtually impossible to build a blocklist for this everyday traffic because we never know which hosts the researchers devices would talk to. So we use a fallback approach. Let the everyday traffic go through the slow path, where traditional security appliances can inspect the traffic. Let the predetermined experimental traffic go through the fast path.
+We let researchers edit allow lists---in the form of a dashboard---that would define their existing scientific workflows. Each entry in the allow lists would define a set of flows, i.e., from which research device will $n$ number of bytes be transmitted to some destination host(s) at certain destination ports over a maxium period of $t$ seconds. Such an entry indicates what kinds of research activity should be rerouted through the fast path, bypass security, and enjoy the high bandwidth and low latency. A network flow that does not match any entries in the allow list would go through the slow path, be subject to inspection by security appliances, and suffer from bandwidth and latency restrictions as a result of these security appliances.
 
-In fact, the current HSRN setup at NYU is some form of an allow list. Researchers request certain ports and rules to be set up by the network administrators, who then have to manually set up, enable, and disable these rules. Why not make this process automatic?
+Such allow lists are traditionally managed by experienced network administrators. Our proposed work will let researchers edit their own allow lists instead. Many researchers are not experts in networking or security. Their allow lists may be prone to mistakes -- either being too narrow (e.g., not including all the intended network flows, such that some research traffic would still go through the slow path) or too broad (e.g., including more than the intended network flows, such that malicious flows might accidentially go through the fast path).
 
-Hence our focus on usability. Empower HSRN users with the ability to self-configure allow lists. We will provide hints and nudges. If they make a mistake, traditional security appliances serve as a fallback.
+To address these potential human issues, we take two approaches. First, within the user interface of the dashboard, our system automatically annotates the network flows in a human-readable form to help researchers understand their network activities and make an informed decision which flow(s) to include in the allow list. Second, even if the researcher makes a mistake, we have a backup IDS as a fallback mechanism. It examines the mirrored traffic (not inline to avoid performance overheads), identifies potential anomalies, alerts the researchers and network administrators, and block the suspicious flows. Using reinforcement learning, the system will remember how humans handle these anomlies and improve the anomaly detection the next time.
 
-We are not reinventing the wheel. Defer to existing algorithms for anomaly detection. Our focus is on building a usable allow list mechanism.
+\paragraph{Why Allow Lists}
+Based on our preliminary analysis of research traffic on NYU's HSRN, most of the network traffic related to scientific activities can be predetermined, e.g., a physicist regularly transferring terrabytes of datasets to specific government agencies, or AR/VR researchers connecting devices in two separate buildings to conduct low-latency AR/VR experiments.
 
-// Existing scientific infrastructure and distributed scientific environments that will benefit from the proposed research;How the proposed security mechanisms or infrastructure enhancements will advance scientific discoveries,collaborations, and innovations, and benefit scientific applications, users, and communities;Any unique properties of the scientific domain or infrastructure that influence the desired security functionality,design, or mechanisms; The software license that will be used for any released software, and justification for why this license has been chosen; A sustainability plan describing how the proposed system will be supported beyond the project duration; and Any ethical and operational concerns of the work, including obtaining explicit consent of target CI or entities under test, protecting the privacy of sensitive datasets, and establishing processes for informed disclosure as required.
+We do use block lists. Although a device connected to the high speed research network is expected to send and receive research-related network traffic, it typically includes non-research traffic, as we have found in our preliminary analysis. An examples of non-research traffic is web traffic (e.g., the researchers searching on Google), which is intractable, because a researcher could visit \textit{any} website, and it is difficult to maintain a block list for what destinations should be banned from the high-speed network. After all, the threat landscape constantly changes. Based on the latest literature [CITE Pearce], even the IP and domain block lists at Facebook and Google are often outdated. Given such restrictions of block lists, we decide to use an allow-list-based approach.
 
-Proposed work. We break down our proposed work into 3 tasks:
+In fact, the current HSRN setup at NYU is already based on allow lists. To enjoy the high bandwidth and low latency, researchers need to make special requests to network administrators to temporarily include their research activities in the allow list and bypass security appliances. Otherwise, all network activities of the researchers would, by default, go through the slow path. In this current design, researchers specify, with the help of the network administrators, which switch ports to open, which destinations to contactIn these requests, and how long to keep the switch ports open; the network administrators would then manually add the corresponding rules on switches, and then disable the rules once the scientific activities are complete.
 
-All three masks all together would help us understand the human needs would help us build that system. And that will help us evaluate the entire system. So the first task is about understanding the needs of and understanding the needs and behaviors of the actual users. And the second task is implementing system. And a third task is evaluating evaluating the system from the users quality feedback, as well as the actual errors being created in third in the third part.
+Our goal is to make this traditionally manual process automatic and less error prone---hence our focus on usability: Empower HSRN users with the ability to self-configure allow lists, guided by our automated annottions. If the researchers (being non-experts) make a mistake, traditional security appliances serve as a fallback. Note that the scope of our proposed work will not include anomaly detection, as there is plenty of work in the literature on anomaly detection for networks.
 
-Task 1: Understanding the needs and behaviors of researchers.
-Through surveys and semi-structured interviews, we plan to understand how they are currently using the HSRN and their experience with the network administrators. Also, we plan to co-design sessions in focus groups to make preliminary designs on what the dashboard looks like and the proposed user interactions.
-Based on the network traffic data, we want to measure their traffic patterns on the network and see whether we can cluster the experimental traffic (based on the surveys and interviews): elephant flows (applicants that consumer significant bandwidth), or flows with small, consistent inter-arrival times (latency sensitive applications); and cluster users: AR researchers vs chemistry researchers who send data to DoE
-Task 2: Implementing the system.
-Front end: UI/UX, and automatic tagging of elephant flow / latency-sensitive flows
-Back end: implementing the backend system, automated inference, using existing state of the art
-Task 3: Deploying and evaluating the system on real users.
-Focus groups, surveys to understand user experience. Iterative process.
-Analysis of Zeek logs to catch human mistakes (allow list too broadly defined?)
 
-Ethical considerations. Conducting user studies will require IRB. Also, we work with NYU IT (through co-PI Dr. Robert Pahle) to implement and obtain necessary network measurement. We follow their existing privacy policies and best practices to impose minimal overhead to users of HSRN.
+\paragraph{Threat Model}
+We assume that an attacker could from from the Internet or from another host on the same research network (e.g., due to malware or advanced persistent threats). The attacker could access, exfiltrate, disrupt, or misue data, code, or hardware on the network. However, we assume no rogue researchers, i.e., researchers who have the right credentials (e.g., with proper multi-factor authentication setup) intentionally conducting the above attacks; in this case, even traditional security appliances may find it difficult to identify and catch rogue insiders. Our goal is that the security of the high-speed research network should be no less than one that uses traditional security appliances.
 
-Also something about informed consent for dashboard users, because we will collect telemetry data to understand their user experience.
+
+\paragraph{Research Tasks}
+We break down our proposed work into 3 tasks.
+
+\begin{itemize}
+    \item Task 1: Understanding the needs and behaviors of researchers.
+    Through surveys and semi-structured interviews, we plan to understand how researchers are currently using the HSRN and their experience with the network administrators. Also, we plan to co-design sessions in focus groups to make preliminary designs on what the dashboard might look like and the proposed user interactions.
+    Finally, we will cluster their traffic patterns on the network, annotate network flows related to scientific activities, and form the initial allow lists for researchers
+    \item Task 2: Implementing the system. XXXX
+    Front end: UI/UX, and automatic tagging of elephant flow / latency-sensitive flows
+    Back end: implementing the backend system, automated inference, using existing state of the art
+    \item Task 3: Deploying and evaluating the system on real users. XXXX
+    Focus groups, surveys to understand user experience. Iterative process.
+    Analysis of Zeek logs to catch human mistakes (allow list too broadly defined?)
+\end{itemize}
+
+
+
+\paragraph{Ethical considerations}
+We will be conducting user studies with researchers on NYU's HSRN, for example interviewing them and conducting co-design sessions (Task 1a and Task 3), as well as collecting network traffic (Task 1b) and detailed telemetry data from the dashboard (Task 3). We will file our experimental protocols with NYU's IRB. We make sure to detail our approach toward informed consent in the dashboard, as we will be collecting interaction-related telemetry data to measure user engagement.
+
+We will closely collaborate with NYU Research Technologies, through co-PI Pahle (who is a Senior Research Scientist at NYU Research Technologies), to implement and obtain necessary network measurement. We will comply with NYU HSRN's privacy policies and best practices. For example, any netork measurement (Task 1b) will be conducted by co-PI Pahle only, as he is already authorized to access the network data. We will make sure to anonymize this data when he shares it with his fellow PI and co-PI.
+
+We will design our study to impose minimal overhead and disruptions to researchers on the HSRN. We will use an incremental roll-out model, where we will first recruit interested researchers to join the alpha test of our system and graduately expand the userbase. Before we switch the entire HSRN to our system, we will work with NYU Research Technologies to provide timely informed consent to every researcher on the network
+
 
