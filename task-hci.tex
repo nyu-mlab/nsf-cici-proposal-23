@@ -23,7 +23,7 @@ This exercise will help us not only understand the needs of researchers but also
 
 \paragraph{Co-designing UI/UX}
 We plan to conduct co-design sessions to make preliminary designs on the dashboard's UI/UX, making sure that the design is consistent with the researchers' scientific workflows.
-Based on our preliminary analysis, typical scientific workloads include two type of flows: high-bandwidth flows (e.g., for file transfers) and low-latency flows (e.g., for robotics and AR/VR experiments).
+Based on our preliminary analysis, typical scientific workloads include two type of network flows: high-bandwidth flows (e.g., for file transfers) and low-latency flows (e.g., for robotics and AR/VR experiments). Here, we use the canonical definition for network flows, which specifies the following five values: the source and destination IP addresses, source and destination ports, and the protocol (TCP/UDP).
 
 From the researcher profile we collected from Task 1a, we will separate the researchers into two groups: one group who self-identifies as conducting mostly high-bandwidth transfer (e.g., physicists sending data to government agencies); and one group who self-identifies as requiring low-latency applications (e.g., roboticists and AR/VR researchers). For each group, we will recruit 3-4 volunteers per co-design session. Within each session, we will ask the participatns to imagine having a self-service portal to specify their workloads and request security bypass---for example, how to describe their workload (e.g., in terms of expected time of completion and number of bytes transffered), how to describe the intended destinations (e.g., in terms of names of government agencies, institutions, IP addresses, or domain names), and how security may play a role in their scientific workloads (e.g., sensitive versus non-sensitive information). During this process, we will guide the participants to sketch out desired user interfaces, how one screen flows to another, and expected actions from each screen.  We will also encourage the participants to design the sketches to integrate into their existing scientific process and avoid impeding their research (unlike the current manual process of requesting security bypasses).
 
@@ -53,7 +53,7 @@ PI Huang will lead the user study, assisted by co-PI Pahle, who can help recruit
 
 \subsection{Task 1b: Identifying traffic patterns through network measurement}
 
-While Task 1a provides us with a qualitative understanding of the researchers' needs and behaviors, this data is limited, because they are based on self-reports (therefore subject to biases or errors) and lack a quantitative perspective that would help us design the UI/UX of the dashboard.
+While Task 1a provides us with a qualitative understanding of the researchers' needs and behaviors, this data is limited, because they are based on self-reports (therefore subject to biases or errors) and lack a quantitative perspective that would help us understand the actual researcher behaviors and design the UI/UX of the dashboard.
 This quantitative perspective is important for us to identify scientific workloads (e.g., the high-bandwidth transfers and low-latency applications) versus non-scientific workloads (e.g., typical web traffic); distinguish types of scientific workloads (e.g., high bandwidth versus low latency); and pinpoint the destination party being contacted in the network flows (e.g., DoE that receives the high-bandwidth data transfer, or the Internet-connected robotic device in the case of low-latency applications).
 
 All of these are critical in helping us create automated annotations to guide users (Task 1b) and identify potential errors (Task 2). Figure~\ref{fig:dashboard} shows an example of traffic annotations. Here, research workloads are shown in red, whereas non-research workloads in green. For each type of workload, the destination parties are annotated to indicate who is interacting with the researcher, along with how many bytes are sent. In this example, the network flows to the Department of Energy (in the case of this hypothetical physicist) is annotated as ``DoE'', while the web traffic is identified as going toward ``Google.'' Such annotations will likely encourage the researcher to select the correct destination---i.e., ``DoE''---on which to apply the security bypass.
@@ -61,76 +61,24 @@ All of these are critical in helping us create automated annotations to guide us
 We plan to make these annotations by analyzing the existing network traffic of NYU's HSRN users. Co-PI Pahle already has access to a tool called NetBox to visualize the network traffic of the HSRN users. Building on top of this preliminary work, we will mirror existing traffic---by setting up port mirroring, for instance at [B], to a server running Zeek [G], as illustrated in Figure~\ref{fig:system}. We will analyze the Zeek logs to create the following annotations.
 
 \paragraph{Annotating research workloads and destinations}
-We plan to identify research versus non-research workloads based on the destination contacted. However, even to make annotations such as ``user contacting DoE servers'' or ``user contacting Google services'' is not trivial. There are two main challenges for identifying  destinations.
+We plan to identify research versus non-research workloads based on the destination contacted. However, even to make annotations such as ``user contacting DoE servers'' or ``user contacting Google services'' is not trivial.
+From the network's perspective, all we see are packets between a researcher's device (known \textit{a priori} because all network access has to be authorized) and another host with some IP address $I$ on the same network or on the Internet. It would be trivial if $I$ is on the same network because we would be able to simply look up the authentication logs and identify the owner of $I$ (e.g., another researcher's device, a robotic, etc). Also, it would be trivial if $I$ is a public Internet IP address and we observe a corresponding DNS response that resolves some hostname $H$ into $I$---in which case, the hostname would be $H$.
 
-The first challenge is inferring the hostnames.
+However, it is more often the case that DNS is cached, and we do not observe any DNS packets. We would have to rely on other means to map $I$ into a hostname, such as inspecting the TLS Server-Name Indicator fields, querying for DNS PTR records, or looking up $I$ in known passive DNS datasets such as FarSight. PTR and passive DNS, in particular, could be imprecise especially in shared infrastructure. As such, we would have to resort to other sources, such as looking up the autonomous system number (ASN) for a given IP address or WHOIS records. All these techniques will help us pinpoint the destinations being contacted and whether a destination is mentioned in a researcher's self-reported workload (Task 1a). For instance, if a physicist already mentions that they regularly send large files with DoE servers (Task 1a) and we indeed find evidence of large data transfers with DoE-owned (e.g., based on ASN-analysis) IP addresses (Task 1b), we can annotate all flows to these IP addresses as research workloads to DoE (e.g., as shown in Figure~\ref{fig:dashboard}).
+
 
 
 \paragraph{Annotating types of research workloads}
-high bandwidth vs low latency
-
-In task one be our goal is to basically come up with default configurations for the allowed lists. At the end of the day, these researchers, we need to help them Bootstrap. Basically, when they first open the dashboard, the dashboard shows some default settings that already fit their needs.
-
-For example, if this is a physicist who regularly sends large amounts of data to say, the Department of Energy, the dashboard should come with pre configured settings for enabling transfers to Department of Energy. So we come up with these default values from two sources. One is from task one a where we find out you know, what the usual regular workflows from the visa researchers are based on their self reports. And based on, you know, this quality of qualitative data. That's the first source.
-
-We need to help researchers make a decision. Bootstrap the allow list. Initial annotations.
+Once we identify research workload, we plan to annotate high-bandwidth vs low-latency traffic to help users decide which flows to apply the security bypass. To identify high-bandwidth workloads, we will measure the number of bytes transferred over the past 60 seconds for every flow and analyze the distribution. For low-latency workloads, we will use the mean and variance of packet inter-arrival times as a proxy to estimate jitter in the traffic.
 
 
+\paragraph{Preliminary work}
+In our earlier work [CITE], we attempted to identify destination hosts through a combination of DNS, TLS SNI, PTR records, and passive DNS mostly for smart home traffic. Here we are applying a similar technique toward research related traffic. We expect unique challenges, especially as the destinations could be academic institutions or government agencies where, for instance, passive DNS is likely to have less coverage (as passive DNS sources its data from residential ISPs).
 
-\paragraph{Clustering scientific workloads}
-Understand qualitatively what kind of network traffic they send. Elephant flows, or latency sensitive flows, presumably depending on what kind of experiment or research work they do.
-
-
-cluster scientific traffic (based on the surveys and interviews): elephant flows (applicants that consumer significant bandwidth), or flows with small, consistent inter-arrival times (latency sensitive applications); and cluster users: AR researchers vs chemistry researchers who send data to DoE
+Our proposed research to characterize high-bandwidth vs low-latency flows is inspired from earlir work on simulated traffic [CITE HotSDN paper]. Unlike the earlier work, we expect to see more variety of network traffic as we are dealing with real-world traffic this time.
 
 
+\paragraph{Expected outcome}
+For every researcher on NYU's HSRN, we are able to identify, based on historical network traffic data, research versus non-research workloads, the destinations of network flows, and the types of research workloads (high bandwidth vs low latency). This analysis helps us annotate current and future network traffic; it will help these researchers make informed decisions how and what to include in the allow list (Task 2).
 
-
-The second source would be coming from network measurement data. We can look at these researchers network traffic. For example, for this physicist, we were able to identify things like this researcher does indeed send a large number of bytes to a server with a domain name that ends with do E and or the autonomous system number belongs to a D O E Network.
-
-This not only helps us This not only helps us confirm the user self report, but it also provides us with a set of quantitative metrics for just identifying the workflows, for example, the workflows will be in the form the the end of it is for a way for us to create annotations of their workflows for example, in this case, the work the annotation would be source coming from this researcher and destination going to particular IP address or the DNS would correspond to a doe domain.
-
-We will learn this data from several sources one from existing data collection mechanisms In a case of NYU, we have this thing called a net box that has analyzed data. Another way we propose is that we will stick this Zeke box into the network, which captures network traffic through a, a tap port, which mirrors the traffic, who is Zeke instance. And that would record basically what DNS traffic is captured. And also, what's the destination IP addresses. And various flow statistics like the total number of bytes, the duration of flows, and, you know, things like inter packet arrival times, which is important in characterizing low latency applications.
-
-So, basically, in summary, the second task, I'm sorry, task one B will help us generate a set of annotations for network traffic, that would quantitatively describe various workflows for these researchers, workflows, that are high bandwidth in nature, or workflows that are low latency in nature for different kinds of researchers. So that's task one, B.
-
-
-
-
-
-Clustering flows. Based on Task 1a, we know qualitatively what kinds of flows researchers tend to generate. Can we identify them? Can we cluster their network activities on the network and match against the qualitative study? For a data transfer, is it mostly elephant flows to a single destination vs mice flows?
-
-
-\paragraph{Identifying destinations}
-What about destinations? Let's say transfer to DoE — is it just one server, or multiple? External vs internal destinations?
-
-\paragraph{Preliminary work} We spoke to some of the users about their work flows
-
-// netbox already captures who is on which port and use case; flows to help us troubleshoot network speed.
-
-no ipv6; too much work
-
-
-
-
-On the dashboard users need to specify which of their network activities to add to an allow list. Not an easy process. Many flows on their computers, elephant and mice. Also multiple destinations, sometimes to CDNs. We help them make this decision.
-
-Profiling users. Task 1a and 1b already give us user profiles.
-
-Auto-identifying destinations. What destination are you talking to? Not straightforward. PI Huang has some preliminary work. NLP. Zeek logs
-
-Auto-clustering traffic patterns. Identifying elephant flows and latency sensitive flows. Presenting this information through dashboard.  Zeek.
-
-// Idea: identifying network flows
-
-\paragraph{Preliminary work} Inspector work — identifying hosts, based on webXray. Flow clustering: PI Huang's HotSDN paper.
-
-\paragraph{Expected outcome} A technique to automatically identify destinations and traffic patterns to help users make decisions more easily.
-
-\paragraph{Lead investigator} PI Huang and Co-PI Pahle will work together on implementing. Co-PI Cappos will advise on XXX.
-
-
-
-\paragraph{Expected outcome} A measurement analysis. Clusters per researcher and type of researcher.
-
-\paragraph{Lead investigator} Co-PI Pahle will work with IT to conduct the study, as he's already a part of the NYU research IT infrastructure team. PI Huang to help with the anonymized data analysis. PI Huang is familiar with network measurement and big data analytics.
+\paragraph{Lead investigator} PI Huang and co-PI Pahle will work together on the network measurement. Co-PI Pahle, as a member of NYU's Research Technology, has access to the network traffic datasets and will anonymize the data. PI Huang will lead the effort analyze and annotate the network data.
