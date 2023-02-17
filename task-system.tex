@@ -1,71 +1,54 @@
 \section{Task 2: Integrating with existing state-of-the-art network systems}
 
+From Task 1, we are able to characterize individual researchers' workloads from self-reports and from empirical data. An hypothetical characterization might look like: ``Dr. Alice Li from the Physics Department reguarly conducts high-bandwidth transfers with the Department of Energy,'' as illustrated in Figure~\ref{fig:dashboard}. This allows us to pre-populate the allow list with the DoE flow, so that the researcher, upon first using the dashboard, will not be starting from scratch.
 
-personalized initial allow list
+In Task 2, we will describe how to implement the dashboard to integrate with the existing network system, how to continuously annotate traffic, and how to catch errors when there is a mistake either from the automatic annotations or from the researchers.
 
 
-So that was task number one, we now move on to task number two, which is actually building the system. It has number two, we split our task in three different in rather two different sub tasks. One is integrating with the existing system. Basically just, you know, how to stick our part into existing network systems. And number two would be to have an error correction mechanism.
+\paragraph{Implementing the dashboard to integrate with the control plane}
+The dashboard shows a personalized view of network flows for every authenticated researcher. These flows are based on network measurement and analysis captured by Zeek [G] (Figure~\ref{fig:system}), which obtained the data by mirroring ports on various switches (such as [B] and [F]). It is normal that a research device may have dozens or even hundreds of concurrent flows. To prioritize which ones to show on the dashboard, we will check against the profiles obtained in Task 1. For example, in the case of the hypothetical physicist Dr. Alice Li, we will have known from Task 1a that she claims to be regularly transmitting data with the DoE, and from Task 1b that her highest bandwidth transferrs were indeed with the DoE based on network measurement. Based on this knowledge, the dashboard will prioritize showing DoE flows, so that she can decide whether to include the DoE flows into her allow list (Figure~\ref{fig:dashboard}).
 
-So let's start with at number one, how to integrate with existing systems. So we'll build a dashboard that would integrate with an existing network controller. With addition network controller, this could be in the form of open a software defined network controller, or it could be in the form of a switch, you know, switch API. What this dashboard does is that based on the user description, we translate this human description, you know, ated, with our cat annotations, into a set of rules that we sent to a switch or an open or or software defined network controller, essentially, our we will design system to be modular in nature. So that we are hardware agnostic, you could work on software defined network work on general switches.
+Once a researcher creates an entry in the allow list (e.g., clicking the ``Apply'' button in Figure~\ref{fig:dashboard} will create an entry ``Alice Li to send at most 10,000 GB to DoE IP addresses or ASNs''), the dashboard [D] to transmit this allow list into the appropriate rules in the control plane [E]. Our design is meant to be hardware agnostic, as we would like our system to be deployed not only on NYU's HSRN but also other institutions' networks in general. In the case of NYU's network (which uses 8 Arista 7280DR3 switches with 24 400G ports in the core network), the dashboard will create a rule based on Arista EOS API [CITE], such that the existing DoE flows will be rerouted from the slow path ([B] to [C]) to the fast path ([B] to [F]), based on Figure~\ref{fig:system}. Our design will be modular in nature, so that the translation from user-defined rules into switch-readable rules will be encasuplated in different modules per vendor. For instance, if another high-speed network uses Cisco switches, the module will translate allow list rules into the appropriate Cisco APIs on the control plane [E] (which, in many cases, exists in the same device as the switch [B]); and if the network is a software defined network (SDN) based on P4 Integrated Network Stack, the module will provide the appropriate translations as well (in which case [E] will be an SDN controller).
 
-In our case, we run the Cisco switch and then we can use Cisco's API to define the set of rules for example, in this case, enabling this physics researcher coming from this walport to contact a particular you know, IP address in the Department of Energy network. So this is the part about translating users findings, users annotations into user specifications into a set of rules.
-
-Actually, one thing I forgot to mention is that how would users enter this in the first place? So on our dashboard, we will have we will have annotations of existing flows from two sources one from our measurement in task one VI and two we will generate on the fly. But there are some challenges in generating flows in the front end clustering flows on the fly for example, when you say talk to a department energy server, there could be multiple servers or it could be on behind the content delivery network. So we will have to basically have a way to infer that you know, this set of IP addresses all belong to department energy. There are few ways to do it. Number one is still cat Whois information or the ASN autonomous system. Information. Number two is looking at domain name. Sometimes we can, you know, we have an alternative process that would translate domain will visit the website and domain name. And then we can use techniques like topic modeling to infer that, hey, this website is actually related to Department of Energy. And thus, you know, the user is really indeed talking to Department of Energy. So we can have these labels, available annotations, ultimately annotations available in the dashboard so that users can select that this is indeed their intended destination. Then once we have intended destination, the dashboard will translate this user selection into rules, which will push onto switches, basically, we have a module for different kinds of switches. If it's a Cisco switch, we will say translate these set of rules into Cisco, iOS Ng, something like that API, which will write two switches. And if this is a software defined network, will just will translate in the appropriate API's. So that's pretty much a task to a implementing the dashboard, providing a way to cluster traffic that will annotate for the users the users know what's, what they're selecting, and then translating user selection into actual rules on switches.
-
-The problem is that this process, in this process, users can make a mistake and make mistakes. As much as we try or we make mistakes, as much as we try to, you know, annotate destinations for user select, we might make a we might be wrong, or, you know, the user may be too broad in their selection in the whitelist, in the allow list, so the user may have accidentally included more destinations than needed, by the way, for for to a in a case of in case the users computers are compromised themselves. One can argue that a an abt an advanced participant a threat, could in theory, manipulate the dashboard and change the settings. So one way is that we will require a second factor authentication to for the user to use this dashboard to minimize the probability of an automatic manipulation of the dashboard. Of course, we will not deal with cases of rogue users who knowingly know that they're abusing a network that is beyond the scope of this paper, rogue users something that that we don't want to handle in this case. In any case, that was a task to a per task to be our role is to catch errors by users, or errors by our annotations, you know, there's that might be too broad in the definition of allow lists. So basically, what we do is that we would mirror the traffic from the port into exeat instance, which rights flow information to through Kafka to a Spark cluster. And we will run isolation forest algorithms or any other anomaly detection algorithms to find anomalies, we will also match this traffic against existing IP based blacklist or domain based blacklist such as so and so to make sure that users have not or we have not accidentally allow traffic that is going to known IP blacklist or domain blacklist, you know, in the case of command and control of malware. And also somewhere that is, you know, out of anomaly. So we have that mechanism to you know, fix these. And when we detect such anomalies, we will also, you know, automatically, you know, degrade the traffic back to the slow path and notify the user that anomaly has been found, and we let them make a decision as to what's going on as to you know, tell us that we are wrong, or tell us that, you know, they are wrong, or you know, defer this to a network administrator for further decisions. So we call this first process, the user in the loop process, where we don't know we ask the user or ask the user to defer to sis admins. And then through this, through this feedback cycle. We basically conduct reinforcement learning to help better train our anomaly detection mechanism, by the way, an anomaly detection system It also takes features from, you know, various sources such as the endpoint, for example, logs, server logs from users, user input, etc. so as to be catching errors. So, basically, from tasks to a and to B, we will be able to build a system that integrates with existing network and number to catch potential mistakes from our automatic annotation or from the user's decision, the users action.
+% https://www.arista.com/assets/data/pdf/Whitepapers/Arista_eAPI_FINAL.pdf
 
 
 
+\paragraph{Catching errors automatically}
+Mistakes are possible. For example, a researcher may accidentally select a non-research flow or a flow they do not recognize. In this case, the allow list is too broad and may increase the attack surface.
 
+We take two approaches to detect such errors. First, from Task 1, we already know each researcher's typical workload based on their self-reports (Task 1a) and network measurement (Task 1b). If a researcher includes a destination not known from Task 1 \textit{a priori}, the dashboard will alert the researcher. Using Figure~\ref{fig:dashboard} as an example, if the hypothetical physicist decides to add the Google flows to the allow list, the dashboard will ask, ``Are you sure to add Google to the allow lists? Your typical research workflow does not include Google.''
 
+In our second approach to detect user errors, we plan to use an IDS that runs anomaly detection. To illustrate how this works, suppose a network flow, $f$ (such as email traffic) is originally not in the allow list and normally go through the slow path, i.e., from [A] to [B] and then to [C], per Figure~\ref{fig:system}. Somehow, the researcher accidentally adds $f$ to the allow list for security bypass (e.g., unintentional mouse clicks on the dashboard, Figure~\ref{fig:dashboard}). This action causes $f$ to be rerouted from [A] to [B] and then to [F].
 
+In our system design, traffic from [F] is mirrored (e.g., through a network tap) to a server running Zeek [G]. By implementing anomaly detection algorithms such as Isolation Forest on the Zeek traffic logs, we hope to automatically detect $f$, which deviates from the researcher's typical research workload commonly observed on the fast path. Our anomaly detection does not run in-line (in contrast to traditional anomaly detection that runs in security middleboxes, such as [C] in Figure~\ref{fig:system}). The benefit of this technique is we impose mimimal performance overhead, as the port mirroring typically can be done at line speed. One limitation is that we might catch anomalies after the fact. Our preliminary implementation of the Isolation Forest takes about 30 seconds to detect an injected simulated anomaly; at 400 Gbps, this delay would translate into 1.5 TB exfiltrated, although we will explore techniques to reduce this delay even further. As anomaly detection is a well explored topic, we defer to the literature for implementation and fine-tuning, and will not discuss the details in this proposal. Our hope is that the chance of triggering the anomaly detection is small, as our approach is based on allow lists;  we will have alerted the researcher in the first place if the researcher decides to add a destination to the allow list that has not been seen before from Task 1.
 
+Once we detect an anomaly, we automatically take two actions. First, our anomaly detection module [G] will manipulate the control plane [E] (e.g., through the API of the switch's operating system, or through an SDN controller in the case of a software-defined network), such that $f$ will be reverted back to the default slow path. At this point, $f$ will be rerouted from [A] to [B] and then to [C], where a traditional security appliance will inspect the packets and decide on further actions (e.g., blocking if the signature matches known malware activities). The second action we will take is to alert the researcher on the dashboard, e.g., through push notifications on the browser [D]. The researcher could decide to ignore this notification (in which case $f$ would stay on the slow path), or override this automated action (in which case $f$ will be added back to the allow list and rerouted through the fast path). In the case of a manual override, the anomaly detection algorithm will improve itself through reinforcement learning, so that $f$ will not be flagged as an anomaly for this researcher the next time.
 
-\paragraph{Modular design for the controller}
-
-System design. see figure 1. How proposed technique will augment existing state-of-the art
-
-// From Rob: // Remove SDN. Write rules to switches. SDN Controller -> Management application (e.g., talk to switch API (cisco iOS ng API for cisco switches and routers)  to set up rules; time-based rules on supported switches if our control plane dies); Ansible Tower, AWX; push configurations to switches (which run SONIC)
-
-// make this system modular; what if the school uses palo alto -> they can switch out the necessary code
+To augment the Isolation Forest, we will explore collecting more endpoint data, such as operating system logs and server logs from researchers' devices [A]. We want to catch cases where the researcher's device itself is compromised (e.g., through malware on another network), the device commnunicates with the malware's command and control, and somehow the researcher is tricked into putting the malware traffic into the allow list (e.g., when the malware-contacted domain is visually similar to a legitimate research-related domain). Note that our threat model assumes no rogue researchers, because if a researcher were to turn rogue (i.e., an insider threat), even the traditional security appliance will have challenges in detecting such cases, especially when the rogue researcher relies on social engineering for attacks (beyond the scope of this proposal). We assume that the researcher's device could be compromised by malware while on another network. To prevent malware from modifying the dashboard, we will adopt the zero-trust model [CITE] and authenticate every modification to the allow list (e.g., through enterprise multi-factor authentication).
 
 
 
 
-\paragraph{Backup system} Zeek as IDS
+
+
+
+% Zeek as IDS
 %https://docs.zeek.org/en/v3.0.14/scripts/policy/frameworks/files/detect-MHR.zeek.html
-matching against signatures
 
-defer to existing literature on detecting anomalies with zeek
+
+% defer to existing literature on detecting anomalies with zeek
 % https://medium.com/hootsuite-engineering/anomaly-based-intrusion-detection-system-using-machine-learning-a18e88694ce0
 
-Failure modes. what if the user fails to make a right selection? IDS on zeek would help.
 
-Check against known blocklists (IPs, domains).
-
-
-Anomaly detection:
-FlowLens: Enabling Efficient Flow Classification for ML-based Network Security Applications
+%Anomaly detection:
+%FlowLens: Enabling Efficient Flow Classification for ML-based Network Security Applications
 
 
 
 
-\paragraph{Human feedback loop}
 
-Are you sure? Anomalous flow?
-
-reinforcement learning
+\paragraph{Expected outcome} We will develop an open-source dashboard to help researchers visualize network flows and manage allow lists on their own, such that the dashboard can be integrated into a generic network architecture, apply rules to the control plane, and manipulate the routing of network flows on the slow and fast paths. Also, we will develop a mechanism to catch user errors by checking against the output of Task 1 and running anomaly detection algorithms in the fast path.
 
 
-
-We can't catch cases where the user is a rogue researcher.
-
-
-\paragraph{Expected outcome} A full fledged small portion of the HSRN that runs the above system for testing purposes.
-
-// From: Jeremy
--An open source tool to monitor,visualize and manage security and data transmission in academic high speed research neworks
--A dashboard front end that  provides remote management by researchers and network administrators. .
-
-
-\paragraph{Lead investigator} PI Huang and Co-PI Pahle will work together on implementing. Co-PI Cappos will advise on XXX.
+\paragraph{Lead investigator} PI Huang and co-PI Cappos will lead the effort to implement the system. Cappos, in particular, has extensive experience developing and deploying large-scale open-source software. All components in our design use open-source libraries, including the dashboard (based on Python Flask), traffic measurement (based on Zeek, whose logs are written to a Spark cluster on which to run Isolation Forest). Co-PI Pahle will assist in testing the prototype and integrating with NYU's existing HSRN infrastructure.
