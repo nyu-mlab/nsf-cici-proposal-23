@@ -1,8 +1,8 @@
 \section{Related Work}
 
-Traditionally, many high-speed research networks adopt the Science DMZ model [CITE] for security, where devices with scientific workloads are connected to an isolated network without any security middleboxes to inspect the packets. While devices within the Science DMZ enjoy optimal performance, the problem is that devices could move in and out of the DMZ (e.g., personal computers). While outside the DMZ, a device could be compromised by malware, and once inside the DMZ, the malware could laterally move within the network and attack other devices [CITE]. Our proposed work addresses this limitation of Science DMZ by proposing a user-editable allow list, supplemented with a backup anomaly detection service to catch any user errors (Task 2). We are creating a more restricted Science DMZ with usability in mind. We want to reduce the attack surface with allow lists. By default, we defer all traffic to the slow path (traditional security middleboxes). Only select flows go through the fast path. We are using allow lists because research workloads are typically tractable. We are not using block lists based on limitations found in the literature [CITE Paul].
+Traditionally, many high-speed research networks adopt the Science DMZ model~\cite{dart2013science} for security, where devices with scientific workloads are connected to an isolated network without any security middleboxes to inspect the packets. While devices within the Science DMZ enjoy optimal performance, the problem is that devices could move in and out of the DMZ (e.g., personal computers). While outside the DMZ, a device could be compromised by malware, and once inside the DMZ, the malware could laterally move within the network and attack other devices~\cite{ho2019detecting}. Our proposed work addresses this limitation of Science DMZ by proposing a user-editable allow list, supplemented with a backup anomaly detection service to catch any user errors (Task 2). We are creating a more restricted Science DMZ with usability in mind. We want to reduce the attack surface with allow lists. By default, we defer all traffic to the slow path (traditional security middleboxes). Only select flows go through the fast path. We are using allow lists because research workloads are typically tractable. We are not using block lists based on limitations found in the literature~\cite{235461}.
 
-An alternative to using Science DMZ is to use fast security middleboxes. There are custom solutions implemented on FPGAs that could run IDS and IPS at 100 Gbps on a single board [CITE Justine Sherry]. While this method could potentially scale, it mostly remains a research project, and it is unclear how we could integrate this method into our existing network. Academic projects aside, there are commercial products available, but they are either prohibitively expensive [CITE Palo Alto] or not fast enough for a typically 400 Gpbs network
+An alternative to using Science DMZ is to use fast security middleboxes. There are custom solutions implemented on FPGAs that could run IDS and IPS at 100 Gbps on a single board~\cite{zhao-osdi20}. While this method could potentially scale, it mostly remains a research project, and it is unclear how we could integrate this method into our existing network. Academic projects aside, there are commercial products available, but they are either prohibitively expensive~\cite{panswitch} or not fast enough for a typically 400 Gpbs network~\cite{ciscoswitch}.
 
 % Cite Vijay's chart showing prices of commercial products
 
@@ -11,14 +11,8 @@ An alternative to using Science DMZ is to use fast security middleboxes. There a
 % Zeek (Bro) could go up to 100 Gbps throughput with the right hardware.
 % Checkpoint throughput spec sheet. Best model: <50 Gbps.
 
-Our focus in on usability, because we are essentially letting researchers who are not experts in network security manage their network security. We build upon previous work on helping non-experts make informed decisions on network security, including building dashboards, visualizations, and simplification of technical concepts for these non-experts.
+Our focus in on usability, because we are essentially letting researchers who are not experts in network security manage their network security. We build upon previous work on helping non-experts make informed decisions on network security, including building dashboards, visualizations, and simplification of technical concepts for these non-experts~\cite{huang2020iot,thakkar2022would,cruz2023augmented,emami2020ask}.
 
-% Hence takes a conservative approach to reduce the attack surface.
-% Security for non-experts
-
-% Dashboard to visualize network traffic [cite Inspector, AR, my CHI paper]
-
-% Nutritional labels. Simplification of technical concepts for non-experts. [Cite Pardis]
 
 
 
