@@ -1,37 +1,28 @@
 \section{Task 3: Deploying and evaluating the system}
 
+Co-PI Pahle, who is a Senior Research Scientist at NYU Research Technology and manages NYU's HSRN, will drive the effort to incrementally deploy our system, first to a small number of opt-in volunteer researchers and gradually increasing the user base. During this process, we will continuously evalute the usability and security of the system.
 
-
-
-Now come task number three, task number three will evaluate our whole system, both from a usability and from a security perspective. So it has three A will evaluate the usability, we will conduct regular interviews and surveys to understand how easy it is for users to use, for example, focus groups, we will also collect telemetry from telemetry from the dashboard, to see whether people are how people use it, what buttons, they click how long it takes for them to specify a flow, if they encounter any errors, and we will have random to the patient's ask them to, to to to just in time surveys to get the feedback in real time. So that's the first part understanding user feedback. The second part measures performance, I'm sorry, measures security. We wanted to see how often the IDs as Zeke gets triggered through what means is it because we made a mistake, the user makes a mistake? How often does it go to the network administrators? How often does our our system go through, you know, reinforcement learning. So these are you know, the task three B's meant to measure how often the dashboard isn't able to handle and you would have to defer to the action of Zeke, the IDs to catch the actions and how good is IDs in catching these actions, you know, by sis admins, etc. And want to measure this on a per researcher level and on aggregate level. So maybe we're good in it for certain workloads, but may not be good for other workloads. So this is the goal of three B to evaluate the system. And that's pretty much the entire proposal. Right?
-
-
-
-
-Deploying to NYU's HSRN. Co-PI will deploy. He works in NYU Research IT infrastructure. He manages the HSRN.
-
-Understanding user experience. We will conduct surveys, semi-structured interviews, focus groups. We will also track interactions on the dashboard (with consent).
-
-Understanding user failures. We will analyze zeek logs to look for cases missed by users. too broadly defined by researchers; missed security bugs.  Is it our annotation problem?
-
-We will explore feedback loop back to dashboard to highlight these errors (hey because traffic got slower) and help the user make more informed decisions next time.
-
-Sustainability plan. Co-PI Pahle will train student workers. He will make sure to keep the infrastructure around. He will be a lead to maintain this infrastructure.
+\paragraph{Evaluting usability}
+We evaluate usability qualitatively and quantitatively. In our qualitative approach, we will conduct regular interviews and surveys and ask for feedback, e.g., examples of unexpected behaviors, any changes in usage (especially when a researcher's scientific workflow may change), and what researchers would like to see in the next release.
+In our quantitative approach, we will gather telemetry from the dashboard to analyze user behavior, such as the sequences of specific button clicks, duration of usage, and how often a researcher receives an error alert, either because the researcher specifies a destination not previously seen in Task 1, or because the destination triggers an anomaly alert from the IDS in [G] (Figure~\ref{fig:system}), per Task 2.
+These methods will allow us to understand how effectively users navigate our product, including their usage of specific features and how the researchers responded to alerts (e.g., taking actions or ignoring alerts).
 
 
 
 
-\paragraph{Measuring errors} How often did Zeek IDS get triggered?
+\paragraph{Evaluating security}
+We plan to measure the security risks that researchers face by examining the instances of [G] (Figure~\ref{fig:system}) catching potential mistakes. While the previous paragraphs in this task have mentioned similar measurements, the focus was on the user experience. Here, we want to know if the users have made genuine errors, and if so, why; or if this is a false positive.
+
+For this security measurement, we will rely on data not only from alerts from [G], but also from network administrators, who would manually examine each (or a sample) of these alerts. As shown in Figure~\ref{fig:system}, every alert from [G] is automatically sent to the network administrators, who can also compare these alerts against [C]. We will  work with the network administrators to look into the nature of these alerts---for example, whether the researcher's action is truly a security threat by checking the destination against known malware block lists for IP addresses and command-and-control domains.  We will manually investigate the alerts, such as why a researcher might include a destination not previously seen before in Task 1, e.g., due to a lack of understanding of the user interface, in which case we would need to fine-tune the UI/UX. We will also work with the network administrators to investigate cases where the researcher manually overrides the alert, i.e., insisting on adding a destination despite warnings. By checking against the user study results in the previous steps in this task, we could determine that the researcher may have changed their scientific workflows (or simply misunderstood how the alerts). We will also examine how effectively the reinforcement learning algorithm improves itself in future alerts. In general, we will conduct these investigations on a per-researcher level and also on an aggregate level, as the alerts may differ across different research workloads.
+
+\paragraph{Evaluating performance}
+Using data from Zeek [G] (Figure~\ref{fig:system}), we will measure the bandwidth and latency of various scientific workloads to make sure that the researchers enjoy the optimal performance. We will also compare against the slow path for the same activities (e.g., based on data before the researchers started using our system) to measure the performance improvement in terms of the increase in average bytes sent/received over time (for high bandwidth applications),  the reduction in jitter in packet inter-arrival times (for streaming applications), and the reduction in round-trip times (for AR/VR applications).
 
 
-\paragraph{Expected outcome} First deployed on a small subset of users. Gradually increasing in size as we conduct more studies.
-
-// From: Jeremy
-	-Measureable
--reduction in security threats (during testing and demonstrated by monitoring
-data during implementation).
-	-improvements in large, high-speed data transfers.
-	-reduction of latency in AR/VR/MR and robotics applications.
+\paragraph{Sustainability plan}.
+The above steps will be done in a continuous fashion, led by co-PI Pahle, who is a Senior Research Scientist at NYU Research Technology and helps maintain the NYU HSRN. During the period of this proposal, he will start training fellow NYU Research Technology staff to maintain our proposed system, including the dashboard [D] and the Zeek network measurement and IDS service at [G] (Figure~\ref{fig:system}). He will also train a cohort of student workers to assist system administrators to analyze alerts from [G] and fine-tune the anomaly detection and the user interface (in the case of user making mistakes because they misunderstood the UI/UX).
 
 
-\paragraph{Lead investigator} PI Huang and Co-PI Pahle will work together on deployment. Co-PI Cappos will advise on XXX.
+\paragraph{Expected outcome} We will first deploy to a small subset of opt-in only researchers on the existing NYU HSRN and gradually increase in userbase. The goal is full deployment at the end of the third year. During this process, we will continously evaluate usability through interviews, surveys, and telemetry analysis. We will also continuously assess the security by analyzing the alerts and user responses to these alerts. We will also continously measure the performance improvements for every researcher on the network.
+
+\paragraph{Lead investigator} Co-PI Pahle will lead the effort to obtain and anonymize the relevant telemetry and networking data from NYU Research Technology. PI Huang will lead the effort to evaluate the usability. He and co-PI Cappos, both experts in network security, will evalute the security and performance of users.
